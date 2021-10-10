@@ -20,7 +20,7 @@
 
     </div>
     <div class="content-body">
-        <!-- Tooltip validations start -->
+        @include('ErrorMessage')
         <section class="tooltip-validations" id="tooltip-validation">
             <div class="row">
                 <div class="col-12">
@@ -68,7 +68,17 @@
                                             <input type="text" class="form-control" placeholder="Enter password_confirmation" id="password_confirmation" name="password_confirmation">
                                         </div>
                                     </div>
-                                  
+                                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="role">Status</label>
+                                            <select name="status" class="form-control">
+                                            <option value="">---Select Status---</option>
+                                                @foreach($enumStatuses as $key => $status)
+                                                    <option value="{{$status}}">{{ ucwords($status) }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-xl-4 col-md-6 col-12 mb-1">
                                         <div class="form-group">
                                             <label for="role">Role</label>

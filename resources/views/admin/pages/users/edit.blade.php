@@ -1,100 +1,120 @@
 @extends('admin.layouts.master')
-@section('prefixname', $prefixname)
-@section('title', $title)
-@section('page_title', $page_title)
 @section('content')
-    <div class="row">
-        <div class="col s12">
-            <div id="input-fields" class="card card-tabs">
-                <div class="card-content">
-                    <div class="card-title">
-                        <div class="row">
-                            <div class="col s12 m6 l10">
-                                <h4 class="card-title">Edit</h4>
-                            </div>
-                            <div class="col s12 m6 l2">
-                                <ul class="tab">
-                                    <li class="tab col s6 p-0"><a class="p-0" href="{{ route('category.index') }}">List</a></li>
-                                    <li class="tab col s6 p-0"><a class="p-0" href="{{ route('category.create') }}">Add</a></li>
-                                </ul>
-                            </div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-md-9 col-12 mb-2">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h2 class="content-header-title float-left mb-0">User</h2>
+                        <div class="breadcrumb-wrapper">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active">User Create
+                                </li>
+                            </ol>
                         </div>
                     </div>
-                    <div id="view-input-fields">
-                        <div class="row">
-                            <div class="col s12">
-                                @if ($message = Session::get('success'))
-                                    <div class="card-alert card green">
-                                        <div class="card-content white-text">
-                                            <p>SUCCESS : {{ $message }}</p>
-                                        </div>
-                                        <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                @endif
-                                @if ($message = Session::get('failed'))
-                                    <div class="card-alert card red">
-                                        <div class="card-content white-text">
-                                            <p>DANGER : {{ $message }}</p>
-                                        </div>
-                                        <button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                @endif
+                </div>
+            </div>
 
-                                <form class="row" action="{{ route('category.update', $category->id) }}" method="POST" enctype="multipart/form-data" files="true">
+        </div>
+        <div class="content-body">
+            @include('ErrorMessage')
+            <!-- Tooltip validations start -->
+            <section class="tooltip-validations" id="tooltip-validation">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title"></h4>
+                            </div>
+                        
+                            <div class="card-body">
+                                <form class="" action=" {{ route('user.update', $user->id) }}" method="post"
+                                    enctype="multipart/form-data" files="true">
                                     @csrf
-                                    <div class="col s6">
-                                        <div class="input-field col s12">
-                                            <input placeholder="Enter Bangla Name" id="nameBn" value="{{ $category->nameBn }}" type="text" name="nameBn" class="validate @error('nameBn') validate @enderror">
-                                            <label for="first_name1">Bangla Name</label>
-                                            <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $errors->first('nameBn') }}</span>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" placeholder="Enter Name" id="name"
+                                                    name="name" value="{{ $user->name }}">
+                                                    <div id="team-message">
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong></strong>
+                                                        </span>
+                                                    </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="username">Username</label>
+                                                <input type="text" class="form-control" placeholder="Enter username"
+                                                    id="username" name="username" value="{{ $user->username }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input type="text" class="form-control" placeholder="Enter email"
+                                                    id="email" name="email" value="{{ $user->email }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="phone">phone</label>
+                                                <input type="text" class="form-control" placeholder="Enter phone"
+                                                    id="phone" name="phone" value="{{ $user->phone }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="text" class="form-control" placeholder="Enter password"
+                                                    id="password" name="password">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="password_confirmation">Confirm Password</label>
+                                                <input type="text" class="form-control"
+                                                    placeholder="Enter password_confirmation" id="password_confirmation"
+                                                    name="password_confirmation">
+                                            </div>
+                                        </div>
 
-                                    <div class="col s6">
-                                        <div class="input-field col s12">
-                                            <input placeholder="Enter English Name" value="{{ $category->nameEn }}" id="nameEn" type="text" name="nameEn" class="validate">
-                                            <label for="first_name1">English Name</label>
-                                            <span class="helper-text red-text" data-error="wrong" data-success="right">{{ $errors->first('nameEn') }}</span>
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="status">Status</label>
+                                                <select name="status" class="form-control">
+                                                    <option value="">---Select Status---</option>
+                                                    @foreach ($enumStatuses as $key => $status)
+                                                        <option value="{{ $status }}" @if ($status == $user->status){{ 'selected' }} @endif>
+                                                            {{ ucwords($status) }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col s12">
-                                        <div class="input-field col s12">
-                                            <textarea placeholder="Enter Description" name="description" id="description" class="materialize-textarea">{{ $category->description }}</textarea>
-                                            <label for="description">Textarea</label>
-                                        </div>
-                                    </div>
-                                    <div class="col s12">
-                                        <div class="col s12 m4 l3">
-                                            <p>Category Image</p>
-                                        </div>
-                                        <div class="col s12 m8 l9">
-                                            @if($category->image)
-                                                <input type="file" name="img" id="input-file-now" class="dropify" data-default-file="{{ asset($category->image) }}" />
-                                            @else
-                                                <input type="file" name="img" id="input-file-now" class="dropify" data-default-file="" />
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="role">Role</label>
+                                                <select name="role" class="form-control">
+                                                    <option value="">---Select Role---</option>
 
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col s12">
-                                        <div class="input-field col s12">
-                                            <select name="status">
-                                                <option {{ $category->status==1 ? "selected" : '' }} value="1">Active</option>
-                                                <option {{ $category->status==0 ? "selected" : '' }} value="0">Deactive</option>
-                                            </select>
+                                                    @foreach ($roles as $key => $role)
+                                                        <option value="{{ $role->id }}" @if ($role->id == $user->roles[0]->id){{ 'selected' }} @endif>
+                                                            {{ $role->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
 
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <button class="btn cyan waves-effect waves-light right" type="submit">Submit
-                                                <i class="material-icons right">send</i>
-                                            </button>
+                                            <button class="btn btn-success right" type="submit">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -102,23 +122,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <!-- Tooltip validations end -->
         </div>
     </div>
-
-
 @endsection
-@push('custom-css')
-    <link rel="stylesheet" type="text/css" href="{{asset('admin/app-assets/vendors/dropify/css/dropify.min.css')}}">
-@endpush
-@push('custom-js')
-    <!-- BEGIN PAGE VENDOR JS-->
-    <script src="{{ asset('admin/app-assets/vendors/dropify/js/dropify.min.js')}}"></script>
-    <!-- END PAGE VENDOR JS-->
-    <!-- BEGIN PAGE LEVEL JS-->
-    <script src="{{ asset('admin/app-assets/js/scripts/form-file-uploads.js') }}"></script>
-    <!-- END PAGE LEVEL JS-->
-    <!-- BEGIN PAGE LEVEL JS-->
-    <script src="{{ asset('admin/app-assets/js/scripts/ui-alerts.js')}}"></script>
-    <!-- END PAGE LEVEL JS-->
-@endpush

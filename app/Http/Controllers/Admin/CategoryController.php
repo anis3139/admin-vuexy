@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Utlity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -26,14 +28,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function store(Request $request){
-
-        $rules = [
-            'nameBn' => ['required', 'unique:categories'],
-            'nameEn' => ['required', 'unique:categories'],
-            'img'    => 'required'
-        ];
-        $this->validate($request, $rules);
+    public function store(CategoryRequest $request){
 
         //upload photo
         if ($request->hasFile('img')){
@@ -50,7 +45,7 @@ class CategoryController extends Controller
         $category->status = $request->status;
         if ($category->save()) {
 
-            return redirect()->route('category.create')->with('success', 'Data Added successfully Done');
+            return redirect()->route('category.index')->with('success', 'Data Added successfully Done');
         }
         return redirect()->back()->withInput()->with('failed', 'Data failed on create');
     }
@@ -64,12 +59,8 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id){
-        $rules = [
-            'nameBn' => 'required|unique:categories,nameBn,'.$request->id,
-            'nameEn' => 'required|unique:categories,nameEn,'.$request->id,
-        ];
-        $this->validate($request, $rules);
+    public function update(CategoryRequest $request, $id){
+   
         $category = Category::findOrFail($id);
         $category->nameBn = $request->get('nameBn');
         $category->nameEn = $request->get('nameEn');
@@ -85,7 +76,7 @@ class CategoryController extends Controller
         $category->status = $request->status;
         if ($category->save()) {
 
-            return redirect()->route('category.edit', $category->id)->with('success', 'Data Updated successfully Done');
+            return redirect()->route('category.index', $category->id)->with('success', 'Data Updated successfully Done');
         }
         return redirect()->back()->withInput()->with('failed', 'Data failed on update');
     }

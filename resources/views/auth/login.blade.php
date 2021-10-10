@@ -14,10 +14,12 @@
 <div class="container">
     <div class="forms-container">
         <div class="signin-signup">
-
+            @php
+            $setting = \App\Models\Setting::first()
+            @endphp
             <form action="{{ route('login') }}" method="POST" class="sign-in-form">
                 @csrf
-                <img src="{{asset('login_page/img/logo.png')}}" alt="" class="logo-img">
+                <img src="{{ $setting->logo ?? asset('login_page/img/logo.png') }}" alt="" class="logo-img">
                 <h2 class="title">Sign in</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -41,23 +43,25 @@
                 </div>
                 <input type="submit" value="Login" class="btn solid" />
 
-{{--                <div class="social-media">--}}
-{{--                    <a href="#" class="social-icon">--}}
-{{--                        <i class="fab fa-facebook-f"></i>--}}
-{{--                    </a>--}}
-{{--                    <a href="#" class="social-icon">--}}
-{{--                        <i class="fab fa-twitter"></i>--}}
-{{--                    </a>--}}
-{{--                    <a href="#" class="social-icon">--}}
-{{--                        <i class="fab fa-google"></i>--}}
-{{--                    </a>--}}
-{{--                    <a href="#" class="social-icon">--}}
-{{--                        <i class="fab fa-linkedin-in"></i>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
+               <div class="social-media">
+                   <a href="#" class="social-icon">
+                       <i class="fab fa-facebook-f"></i>
+                   </a>
+                   <a href="#" class="social-icon">
+                       <i class="fab fa-twitter"></i>
+                   </a>
+                   <a href="#" class="social-icon">
+                       <i class="fab fa-google"></i>
+                   </a>
+                   <a href="#" class="social-icon">
+                       <i class="fab fa-linkedin-in"></i>
+                   </a>
+               </div>
             </form>
+
+
             <form action="#" class="sign-up-form">
-                <img src="{{asset('login_page/img/logo.png')}}" alt="" class="logo-img">
+                <img src="{{ $setting->logo ?? asset('login_page/img/logo.png') }}" alt="" class="logo-img">
                 <h2 class="title">Sign up</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
@@ -88,35 +92,38 @@
                     </a>
                 </div>
             </form>
+
+
+
         </div>
     </div>
 
     <div class="panels-container">
         <div class="panel left-panel">
-{{--            <div class="content">--}}
-{{--                <h3>Sign In</h3>--}}
-{{--                <p>--}}
-{{--                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,--}}
-{{--                    ex ratione. Aliquid!--}}
-{{--                </p>--}}
-{{--                <button class="btn transparent" id="sign-up-btn">--}}
-{{--                    Sign up--}}
-{{--                </button>--}}
-{{--            </div>--}}
-            <img src="{{asset('login_page/img/sideimage.png')}}" class="image" alt="" />
+           <div class="content">
+               <h3>Sign In</h3>
+               <p >
+                {{ $setting->site_title ?? 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+                ex ratione. Aliquid!' }} 
+               </p>
+               <button class="btn transparent" id="sign-up-btn">
+                   Sign up
+               </button>
+           </div>
+            <img src="{{ $setting->default_image ?? asset('login_page/img/sideimage.png') }}" class="image" alt="" />
         </div>
         <div class="panel right-panel">
             <div class="content">
                 <h3>One of us ?</h3>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                    laboriosam ad deleniti.
+                    {{ $setting->site_title ?? 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
+                    ex ratione. Aliquid!' }} 
                 </p>
                 <button class="btn transparent" id="sign-in-btn">
                     Sign in
                 </button>
             </div>
-            <img src="{{asset('login_page/img/register.svg')}}" class="image" alt="" />
+            <img src="{{ $setting->default_image ?? asset('login_page/img/sideimage.png') }}" class="image" alt="" />
         </div>
     </div>
 </div>

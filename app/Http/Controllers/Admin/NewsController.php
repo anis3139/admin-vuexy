@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsRequest;
 use App\Models\Category;
 use App\Models\Deviceinformation;
 use App\Models\News;
@@ -36,19 +37,8 @@ class NewsController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
-
-        //dd($request->all());
-        $rules = [
-            'category' => 'required',
-            //            'subcategory' => 'required',
-            //            'tag' => 'required',
-            'title' => ['required', 'unique:news'],
-            'description' => 'required',
-            //            'img' => 'required',
-        ];
-        $this->validate($request, $rules);
 
         //upload photo
         if ($request->hasFile('img')) {
@@ -102,7 +92,7 @@ class NewsController extends Controller
             }
             curl_close($ch);
 
-            return redirect()->route('news.create')->with(['success' => 'Data Added successfully Done', 'result' => $result]);
+            return redirect()->route('news.index')->with(['success' => 'Data Added successfully Done', 'result' => $result]);
         }
         return redirect()->back()->withInput()->with('failed', 'Data failed on create');
     }
@@ -130,17 +120,10 @@ class NewsController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(NewsRequest $request, $id)
     {
 
-        $rules = [
-            'category' => 'required',
-            //            'subcategory' => 'required',
-            //            'tag' => 'required',
-            'title' => 'required|unique:news,title,' . $request->id,
-            'description' => 'required',
-        ];
-        $this->validate($request, $rules);
+
 
 
         $news = News::findOrFail($id);
@@ -162,7 +145,7 @@ class NewsController extends Controller
         }
         $news->status = $request->status;
         if ($news->save()) {
-            return redirect()->route('news.edit', $news->id)->with('success', 'Data Updated successfully Done');
+            return redirect()->route('news.index', $news->id)->with('success', 'Data Updated successfully Done');
         }
         return redirect()->back()->withInput()->with('failed', 'Data failed on create');
     }

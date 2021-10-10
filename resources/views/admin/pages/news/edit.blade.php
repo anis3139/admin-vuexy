@@ -19,6 +19,7 @@
         </div>
     </div>
     <div class="content-body">
+        @include('ErrorMessage')
         <!-- Tooltip validations start -->
         <section class="tooltip-validations" id="tooltip-validation">
             <div class="row">

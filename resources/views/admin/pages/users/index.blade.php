@@ -21,6 +21,7 @@
 
     </div>
     <div class="content-body">
+        @include('ErrorMessage')
         <!-- Responsive tables start -->
         <div class="row" id="table-responsive">
             <div class="col-12">
