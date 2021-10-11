@@ -3,7 +3,7 @@
 @section('title', $title)
 @section('page_title', $page_title)
 @section('content')
-
+@include('ErrorMessage')
     <!-- Page Length Options -->
     <div class="row">
         <div class="col s12">

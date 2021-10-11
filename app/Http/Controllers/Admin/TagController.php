@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -25,13 +26,9 @@ class TagController extends Controller
         ]);
     }
 
-    public function store(Request $request){
+    public function store(TagRequest $request){
 
-        $rules = [
-            'nameBn' => ['required', 'unique:tags'],
-            'nameEn' => ['required', 'unique:tags'],
-        ];
-        $this->validate($request, $rules);
+    
 
         $tag = new Tag();
         $tag->nameBn = $request->get('nameBn');
@@ -39,7 +36,7 @@ class TagController extends Controller
         $tag->status = $request->status;
         if ($tag->save()) {
 
-            return redirect()->route('tag.create')->with('success', 'Data Added successfully Done');
+            return redirect()->route('tag.index')->with('success', 'Data Added successfully Done');
         }
         return redirect()->back()->withInput()->with('failed', 'Data failed on create');
     }
@@ -53,12 +50,7 @@ class TagController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id){
-        $rules = [
-            'nameBn' => 'required|unique:categories,nameBn,'.$request->id,
-            'nameEn' => 'required|unique:categories,nameEn,'.$request->id,
-        ];
-        $this->validate($request, $rules);
+    public function update(TagRequest $request, $id){
 
         $tag = Tag::findOrFail($id);
         $tag->nameBn = $request->get('nameBn');

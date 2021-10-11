@@ -74,6 +74,10 @@ Route::namespace('\App\Http\Controllers\Admin')->middleware(['auth'])->group(fun
         Route::get('/list', 'Auth\UserController@index')->name('user.index');
         Route::get('/create', 'Auth\UserController@create')->name('user.create');
         Route::post('/create', 'Auth\UserController@store')->name('user.store');
+        Route::get('/edit/{id}', 'Auth\UserController@edit')->name('user.edit');
+        Route::post('/update/{id}', 'Auth\UserController@update')->name('user.update');
+        Route::post('/delete/{id}', 'Auth\UserController@destroy')->name('user.destroy');
+        // Route::resource('user', 'Auth\UserController');
         Route::get('/profile/{id}', 'Auth\UserController@profile')->name('user.profile');
         Route::get('/profile/update/{id}', 'Auth\UserController@edit')->name('user.edit');
         Route::post('/profile/update/{id}', 'Auth\UserController@update')->name('user.update');

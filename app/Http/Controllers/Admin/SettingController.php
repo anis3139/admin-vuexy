@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SettingsRequest;
 use App\Models\Category;
 use App\Models\Setting;
 use App\Utlity;
@@ -19,16 +20,8 @@ class SettingController extends Controller
         ]);
     }
 
-    public function store(Request $request){
+    public function store(SettingsRequest $request){
 
-        $rules = [
-            'site_name' => 'required',
-            'site_title' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-
-        ];
-        $this->validate($request, $rules);
 
         //upload photo
         if ($request->hasFile('logo')){
@@ -43,6 +36,7 @@ class SettingController extends Controller
         else {
             $default_image = null;
         }
+        
         $setting = new Setting();
         $setting->site_name = $request->get('site_name');
         $setting->site_title = $request->get('site_title');
@@ -59,22 +53,8 @@ class SettingController extends Controller
         return redirect()->back()->withInput()->with('failed', 'Data failed on create');
     }
 
-    public function update(Request $request, $id){
+    public function update(SettingsRequest $request, $id){
 
-        $rules = [
-            'site_name' => 'required',
-            'site_title' => 'required',
-            'copyright_message' => 'required',
-            'copyright_name' => 'required',
-            'copyright_url' => 'required',
-            'design_develop_by_text' => 'required',
-            'design_develop_by_name' => 'required',
-            'design_develop_by_url' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-
-        ];
-        $this->validate($request, $rules);
 
 
         $setting = Setting::find($id);
