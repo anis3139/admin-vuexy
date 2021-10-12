@@ -45,19 +45,19 @@ class ContactController extends Controller
 
 
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required | email',
-            'phone_number' => 'required|min:11|numeric',
-            'msg_subject' => 'required',
-            'message' => 'required',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required',
+        //     'email' => 'required | email',
+        //     'phone_number' => 'required|min:11|numeric',
+        //     'msg_subject' => 'required',
+        //     'message' => 'required',
+        // ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors()->toJson(), 400);
+        // }
         $Contact = Contact::create(array_merge(
-            $validator->validated(),
+            // $validator->validated(),
             ['name' => $request->name],
             ['email' => $request->email],
             ['phone_number' => $request->phone_number],

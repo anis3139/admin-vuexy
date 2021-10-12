@@ -44,6 +44,9 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('')}}assets/css/style.css">
     <!-- END: Custom CSS-->
+
+    @yield('page-style')
+    @yield('vendor-style')
 </head>
 <!-- END: Head-->
 
@@ -144,6 +147,8 @@
     </script>
     <!--  -->
     @stack('custom-js')
+    @yield('vendor-script')
+    @yield('page-script')
 </body>
 <!-- END: Body-->
 

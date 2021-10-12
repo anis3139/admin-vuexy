@@ -2,6 +2,7 @@
 @section('prefixname', $prefixname)
 @section('title', $title)
 @section('page_title', $page_title)
+
 @section('content')
 @include('ErrorMessage')
     <div class="row">
@@ -69,7 +70,7 @@
                                                                         <div class="col s12">
                                                                             <div id="full-wrapper">
                                                                                 <div id="full-container">
-                                                                                    <textarea class="editor" name="description" id="" cols="30"
+                                                                                    <textarea class="editor" name="description" id="editor" cols="30"
                                                                                               rows="20"></textarea>
                                                                                 </div>
                                                                             </div>
@@ -239,3 +240,4 @@
         }(jQuery));
     </script>
 @endpush
+

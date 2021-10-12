@@ -37,9 +37,10 @@ class NewsController extends Controller
         ]);
     }
 
-    public function store(NewsRequest $request)
+    public function store(Request $request)
     {
 
+        dd($request);
         //upload photo
         if ($request->hasFile('img')) {
             $path = Utlity::file_upload($request, 'img', 'News_Photo');
