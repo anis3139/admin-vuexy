@@ -5,7 +5,7 @@
     <div class="content-header row">
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
-                <div class="col-12">
+                <div class="col-6">
                     <h2 class="content-header-title float-left mb-0">News</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
@@ -25,8 +25,13 @@
         <div class="row" id="table-responsive">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">News List</h4>
+                    <div class="card-header d-flex">
+                        <div class="left">
+                            <h4 class="card-title">News List</h4>
+                        </div>
+                        <div class="right">
+                            <a class="btn btn-primary btn-learge" href="{{ route('news.create') }}">Add News</a>
+                        </div>
                     </div>
                     <div class="card-body">
 

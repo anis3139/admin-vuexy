@@ -11,12 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin/app-assets/vendors/quill/quill.snow.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/admin/app-assets/vendors/quill/quill.bubble.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/quill/katex.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/app-assets/vendors/quill/monokai-sublime.min.css') }}">
     <!-- Template files -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/form-quill-editor.min.css') }}">
-
-
+    <link rel="stylesheet" type="text/css" href="app-assets/css/plugins/forms/form-quill-editor.css">
     <style>
         .select2-container--default .select2-selection--single .select2-selection__arrow b {
             border-style: none;
@@ -89,11 +85,28 @@
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-12 mb-1">
                                             <div class="form-group">
+                                                <label for="description">Description Bangla</label>
+                                                <textarea placeholder="Enter Description" name="description"
+                                                    id="description" class="form-control" aria-label="description"
+                                                    aria-describedby="description"></textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
+                                                <label for="descriptionEn">Description English</label>
+                                                <textarea placeholder="Enter Description" name="descriptionEn"
+                                                    id="descriptionEn" class="form-control" aria-label="descriptionEn"
+                                                    aria-describedby="descriptionEn"></textarea>
+                                            </div>
+                                            <div class="valid-feedback">Looks good!</div>
+                                            <div class="invalid-feedback">Please select your country</div>
+                                        </div>
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                            <div class="form-group">
                                                 <label for="category">Category</label>
                                                 <select id="category" name="category" class="form-control select2"
                                                     aria-label="category" aria-describedby="category">
-
-                                                    <option value="" selected>---- Select Category---</option>
                                                     @foreach ($categories as $key => $category)
                                                         <option value="{{ $category->id }}">{{ $category->nameBn }}
                                                             ({{ $category->nameEn }})</option>
@@ -160,46 +173,26 @@
                                                 <div class="invalid-feedback">Please select your country</div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-md-6 col-12 mb-1  my-5">
-                                            <div class="form-group" id="bnDescrioption">
-
-                                            </div>
-
-                                            <div class="valid-feedback">Looks good!</div>
-                                            <div class="invalid-feedback">Please select your country</div>
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-6 col-12 mb-1 my-5">
-                                            <div class="form-group" id="enDescrioption">
-
-                                            </div>
-                                            <div class="valid-feedback">Looks good!</div>
-                                            <div class="invalid-feedback">Please select your country</div>
-                                        </div>
-
-
-                                        <div class="col-xl-4 col-md-6 col-12  my-5">
+                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
                                             <div class="form-group">
                                                 <label for="description">Image</label>
-
-                                                <input type="file" id="img" class="form-control"
-                                                    placeholder="Title English" aria-label="img" aria-describedby="img"
-                                                    name="img" />
+    
+                                                <input type="file" id="img" class="form-control" placeholder="Title English"
+                                                    aria-label="img" aria-describedby="img" name="img" />
                                                 <div class="valid-feedback">Looks good!</div>
                                                 <div class="invalid-feedback">Please enter your name.</div>
+                                                
                                             </div>
-                                            <div class="image text-center">
-                                                <img src="" alt="" id="imagePreview" width="150px" height="auto"
-                                                    class="border border-round">
-                                            </div>
+                                                <img src="" alt="" id="imagePreview" width="150px" height="auto" class="text-center">
+                                           
                                         </div>
                                     </div>
-                                    <div class="row mt-5">
+                                   
+                                    <div class="row">
                                         <div class="input-field col s12">
                                             <button class="btn btn-success right" type="submit">Submit</button>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -216,170 +209,65 @@
     <script src="{{ asset('/app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('/app-assets/js/scripts/forms/form-validation.js') }}"></script>
     <script src="{{ asset('/admin/app-assets/vendors/quill/quill.min.js') }}"></script>
-    <script src="{{ asset('/admin/app-assets/vendors/quill/themes/bubble.js') }}"></script>
-
-    <script src="{{ asset('admin/app-assets/vendors/quill/katex.min.js') }}"></script>
-    {{-- <script src="{{asset('admin/app-assets/js/scripts/form-editor.js')}}"></script> --}}
 @endsection
 @section('page-script')
 
-
     <script>
-        (function(window, document, $) {
-            'use strict';
-            $('#userAddForm').validate({
-                rules: {
-                    title: "required",
-                    img: "required",
-                    tag: "required",
-                    status: "required",
-                    category: "required",
-                    subcategory: "required",
-                    bnDescrioption: "required",
-                    enDescrioption: "required",
-                    titleEn: {
-                        required: true,
-                        email: true
-                    }
-                },
-                messages: {
-                    title: "Please specify Title (Bangla)",
-                    img: "Please Selcect Image",
-                    tag: "Please Selcect Tag",
-                    status: "Please Selcect Status",
-                    category: "Please Selcect Category",
-                    subcategory: "Please Selcect Sub Category",
-                    enDescrioption: "Please specify Description (English)",
-                    bnDescrioption: "Please specify Description (Bangla)",
-                    titleEn: {
-                        required: "Please specify Title (English)",
-                        // email: "Your email address must be in the format of name@domain.com"
-                    }
+        $('#userAddForm').validate({
+            rules: {
+                title: "required",
+                img: "required",
+                tag: "required",
+                status: "required",
+                category: "required",
+                subcategory: "required",
+                descriptionEn: "required",
+                description: "required",
+                titleEn: {
+                    required: true,
+                    email: true
                 }
-            });
-
-
-            // $(".select2").select2();
-            var select = $('.select2');
-
-            select.each(function() {
-                var $this = $(this);
-                $this.wrap('<div class="position-relative"></div>');
-                $this
-                    .select2({
-                        placeholder: 'Select value',
-                        dropdownParent: $this.parent()
-                    })
-                    .change(function() {
-                        $(this).valid();
-                    });
-            });
-
-            $('#img').change(function() {
-                var reader = new FileReader();
-                reader.readAsDataURL(this.files[0]);
-                reader.onload = function(event) {
-                    var ImgSource = event.target.result;
-                    $('#imagePreview').attr('src', ImgSource)
+            },
+            messages: {
+                title: "Please specify Title (Bangla)",
+                img: "Please Selcect Image",
+                tag: "Please Selcect Tag",
+                status: "Please Selcect Status",
+                category: "Please Selcect Category",
+                subcategory: "Please Selcect Sub Category",
+                descriptionEn: "Please specify Description (English)",
+                description: "Please specify Description (Bangla)",
+                titleEn: {
+                    required: "Please specify Title (English)",
+                    // email: "Your email address must be in the format of name@domain.com"
                 }
-            })
-
-            var Editors = ['#enDescrioption', '#bnDescrioption'];
-            var quill;
-            for (var k = 0; k <= Editors.length; k++) {
-                quill = new Quill(Editors[k], {
-                    theme: 'snow'
-                });
             }
+        });
 
 
+        // $(".select2").select2();
+        var select = $('.select2');
 
-            var Font = Quill.import('formats/font');
-            Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
-            Quill.register(Font, true);
+        select.each(function() {
+            var $this = $(this);
+            $this.wrap('<div class="position-relative"></div>');
+            $this
+                .select2({
+                    placeholder: 'Select value',
+                    dropdownParent: $this.parent()
+                })
+                .change(function() {
+                    $(this).valid();
+                });
+        });
 
-
-
-            // Snow Editor
-
-
-
-
-            var bnDescrioption = new Quill('#enDescrioption', {
-                bounds: '#enDescrioption',
-                modules: {
-                    formula: true,
-                    syntax: true,
-                    toolbar: [
-                        [{
-                                font: []
-                            },
-                            {
-                                size: []
-                            }
-                        ],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{
-                                color: []
-                            },
-                            {
-                                background: []
-                            }
-                        ],
-                        [{
-                                script: 'super'
-                            },
-                            {
-                                script: 'sub'
-                            }
-                        ],
-                        [{
-                                header: '1'
-                            },
-                            {
-                                header: '2'
-                            },
-                            'blockquote',
-                            'code-block'
-                        ],
-                        [{
-                                list: 'ordered'
-                            },
-                            {
-                                list: 'bullet'
-                            },
-                            {
-                                indent: '-1'
-                            },
-                            {
-                                indent: '+1'
-                            }
-                        ],
-                        [
-                            'direction',
-                            {
-                                align: []
-                            }
-                        ],
-                        ['link', 'image', 'video', 'formula'],
-                        ['clean']
-                    ]
-                },
-                theme: 'snow'
-            });
-
-
-            var bnDescrioption = new Quill('#bnDescrioption', {
-
-                modules: {
-                    formula: true,
-                    syntax: true
-                },
-                theme: 'bubble'
-            });
-
-
-            var editors = [bnDescrioption, enDescrioption];
-        })(window, document, jQuery);
+        $('#img').change(function() {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(event) {
+                var ImgSource = event.target.result;
+                $('#imagePreview').attr('src', ImgSource)
+            }
+        })
     </script>
 @endsection

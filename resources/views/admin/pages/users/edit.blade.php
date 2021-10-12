@@ -26,10 +26,14 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title"></h4>
+                            <div class="card-header d-flex">
+                                <div class="left">
+                                    <h4 class="card-title"></h4>
+                                </div>
+                                <div class="right">
+                                    <a class="btn btn-primary btn-learge" href="{{ route('user.index') }}">User List</a>
+                                </div>
                             </div>
-                        
                             <div class="card-body">
                                 <form class="" action=" {{ route('user.update', $user->id) }}" method="post"
                                     enctype="multipart/form-data" files="true">

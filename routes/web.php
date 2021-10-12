@@ -110,8 +110,9 @@ Route::namespace('\App\Http\Controllers\Admin')->middleware(['auth'])->group(fun
 
     //manage comment
     Route::prefix('comment')->group(function () {
-        Route::get('approve/list', 'CommentController@approveList')->name('comment.approve.list');
-        Route::get('pending/list', 'CommentController@pendingList')->name('comment.pending.list');
+        Route::get('comment', 'CommentController@index')->name('comment.list');
+        Route::get('approve/approve-list', 'CommentController@approveList')->name('comment.approve.list');
+        Route::get('pending/pending-list', 'CommentController@pendingList')->name('comment.pending.list');
         Route::get('pending/list/approve/{id}', 'CommentController@pendingListApprove')->name('comment.pending.list.approve');
         Route::delete('delete/{id}', 'CommentController@destroy')->name('comment.destroy');
     });

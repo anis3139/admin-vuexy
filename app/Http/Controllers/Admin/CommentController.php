@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function index(){
+        return view('admin.pages.comment.index', [
+
+            'prefixname' => 'Admin',
+            'title' => 'Comment Approve List',
+            'page_title' => 'Comment Approve List',
+            'comments' => Comment::all()
+
+        ]);
+    }
+
     public function approveList(){
         return view('admin.pages.comment.approve_list', [
 
@@ -25,7 +36,7 @@ class CommentController extends Controller
             'prefixname' => 'Admin',
             'title' => 'Comment Pending List',
             'page_title' => 'Comment Pending List',
-            'approvelists' => Comment::where('status','0')->latest()->get()
+            'approvelists' => Comment::where('status','0')->latest()->get(),
 
         ]);
     }

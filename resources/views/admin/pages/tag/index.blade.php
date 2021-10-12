@@ -25,8 +25,14 @@
         <div class="row" id="table-responsive">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Tag List</h4>
+                   
+                    <div class="card-header d-flex">
+                        <div class="left">
+                            <h4 class="card-title">Tag List</h4>
+                        </div>
+                        <div class="right">
+                            <a class="btn btn-primary btn-learge" href="{{ route('tag.create') }}">Add News</a>
+                        </div>
                     </div>
                     <div class="card-body">
 

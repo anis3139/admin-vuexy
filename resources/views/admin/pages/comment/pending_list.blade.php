@@ -25,8 +25,13 @@
         <div class="row" id="table-responsive">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Pending List List</h4>
+                    <div class="card-header d-flex">
+                        <div class="left">
+                            <h4 class="card-title">Comment Pending List </h4>
+                        </div>
+                        <div class="right">
+                            <a class="btn btn-primary btn-learge" href="{{ route('comment.list') }}">Back To Comment List</a>
+                        </div>
                     </div>
                     <div class="card-body">
 
@@ -56,30 +61,46 @@
                                         <td>{{ $tag->phone }}</td>
                                         <td>{{ $tag->comment }}</td>
                                         <td>
-                                            <span class="badge {{ $tag->status == 1 ? 'blue' : 'red' }}">{{ $tag->status == 1 ? 'Approved' : 'Pending' }}</span>
+
+                                            <span
+                                                class="badge badge-{{ $tag->status == 1 ? 'success' : 'danger' }}  ">{{ $tag->status == 1 ? 'Approved' : 'Pending' }}</span>
                                         </td>
                                         <td>
+                                          
                                             <div class="icon-preview col s6 m3">
-                                                <form action="{{ route('comment.pending.list.approve',$tag->id) }}" method="GET">
+                                                <a href="{{ route('news.view', $tag->news_id) }}" method="GET"
+                                                    title="View">
+                                                    <i data-feather="view"></i><span class="btn btn-sm btn-secondary">
+                                                        View Post </span>
+                                                </a>
+
+                                            </div>
+                                            @if ($tag->status == 0)
+                                            <div class="icon-preview col s6 m3 mt-1">
+                                                <form
+                                                    action="{{ route('comment.pending.list.approve', $tag->id) }}"
+                                                    method="GET">
                                                     @csrf
-                                                    <button style="border: none; background: transparent" type="submit" onclick="return confirm('Are you sure, want to Approve?');">
-                                                        <i class="material-icons dp48" title="Approve Comment">check</i>
+                                                    <button style="border: none; background: transparent "
+                                                        type="submit"
+                                                        onclick="return confirm('Are you sure, want to Approve?');">
+                                                        <i data-feather="eye"></i><span
+                                                            class="text-white btn btn-success btn-sm">
+                                                            Approve </span>
                                                     </button>
                                                 </form>
 
                                             </div>
+                                        @endif
                                             <div class="icon-preview col s6 m3">
-                                                <a href="{{ route('news.view', $tag->news_id) }}" method="GET" title="View">
-                                                    <i class="material-icons dp48">remove_red_eye</i>
-                                                </a>
-
-                                            </div>
-                                            <div class="icon-preview col s6 m3">
-                                                <form action="{{ route('comment.destroy', $tag->id) }}" method="POST">
+                                                <form action="{{ route('comment.destroy', $tag->id) }}"
+                                                    method="POST">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
-                                                    <button class="btn" type="submit" onclick="return confirm(' you want to delete?');">
-                                                        <i class="material-icons dp48">delete</i>
+                                                    <button class="btn" type="submit"
+                                                        onclick="return confirm(' you want to delete?');">
+                                                        <i data-feather='trash'></i><span class="btn btn-sm btn-danger">
+                                                            delete </span>
                                                     </button>
                                                 </form>
                                             </div>
