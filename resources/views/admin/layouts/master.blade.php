@@ -109,7 +109,6 @@
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
 
-
     <!-- BEGIN: Vendor JS-->
     <script src="{{asset('')}}app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
