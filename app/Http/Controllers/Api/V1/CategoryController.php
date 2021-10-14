@@ -30,4 +30,24 @@ class CategoryController extends Controller
         ];
         return response()->json($response,200);
     }
+    public function catHaveNews(){
+
+        $categories = CategoryResource::collection(Category::has('news')->where('status',1)->get());
+
+        if ($categories->count() == 0) {
+            $response = [
+                'success' => 'false',
+                'data' => '',
+                'message' => " Category List Empty",
+            ];
+            return response()->json($response,400);
+        }
+
+        $response = [
+            'success' => 'true',
+            'data' => $categories,
+            'message' => " Category List Data",
+        ];
+        return response()->json($response,200);
+    }
 }

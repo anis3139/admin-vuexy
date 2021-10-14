@@ -87,10 +87,10 @@
                                     <div class="col-xl-4 col-md-6 col-12 mb-1">
                                         <div class="form-group">
                                             <label for="tag">Tag</label>
-                                            <select name="tag" id="tag" class="form-control">
+                                            <select name="tags[]" id="tag" class="form-control" multiple>
                                                 <option value="" selected>---- Select Tag---</option>
                                                 @foreach($tags as $key => $tag)
-                                                <option value="{{ $tag->id }}" {{ $tag->id == $news->tag_id ? "selected" : '' }}>{{ $tag->nameBn }} ({{ $tag->nameEn }})</option>
+                                                <option value="{{ $tag->id }}" {{ $tag->id == $news->tag ? "selected" : '' }}>{{ $tag->nameBn }} ({{ $tag->nameEn }})</option>
                                                 @endforeach
                                             </select>
                                         </div>

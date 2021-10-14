@@ -78,7 +78,7 @@ class NewsController extends Controller
 
     public function view($id){
 
-        $news = News::where(['id' => $id,'status' => 1])->first();
+        $news = News::with('tags')->where(['id' => $id,'status' => 1])->first();
 
         $viewcount = News::find($id);
         $viewcount->view_count = $viewcount->view_count +1;

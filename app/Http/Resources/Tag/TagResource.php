@@ -18,6 +18,7 @@ class TagResource extends JsonResource
             'id' => $this->id,
             'nameEn' => $this->nameEn,
             'nameBn' => $this->nameBn,
+            'news' =>$this->news->count()
         ];
     }
 }

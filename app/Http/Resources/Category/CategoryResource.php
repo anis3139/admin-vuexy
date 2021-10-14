@@ -20,6 +20,7 @@ class CategoryResource extends JsonResource
             'nameBn' => $this->nameBn,
             'description' => $this->description,
             'image' => asset($this->image),
+            'news' =>$this->news->count()
         ];
     }
 }

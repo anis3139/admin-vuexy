@@ -39,7 +39,6 @@ class NewsController extends Controller
 
     public function store(NewsRequest $request)
     {
-
         //upload photo
         if ($request->hasFile('img')) {
             $path = Utlity::file_upload($request, 'img', 'News_Photo');
@@ -50,49 +49,14 @@ class NewsController extends Controller
         $news->user_id = Auth::user()->id;
         $news->category_id = $request->get('category');
         $news->subcategory_id = $request->get('subcategory');
-        $news->tag_id = $request->get('tag');
         $news->title = $request->get('title');
         $news->titleEn = $request->get('titleEn');
         $news->description = $request->get('description');
         $news->descriptionEn = $request->get('descriptionEn');
         $news->image = $path;
         if ($news->save()) {
-
-            //            for send notification
-            $url = 'https://fcm.googleapis.com/fcm/send';
-            $token = 'AAAAP2tmdKA:APA91bGP3kyE1X9cE71mPKZ4nOpQR_dNX3vwmfgXxoF3mLAtin5GWnHhs3UantDTh1t90tSbeotCei7e7-htxdlezpJdC0wMsLZ-2Z_aKBHlc1tn4egFlWJlEKFjsbKbT7BJ36QkAbaX';
-            $firebaseToken = Deviceinformation::whereNotNull('device_token')->pluck('device_token')->all();
-            $data = News::with('category')->latest()->first();
-            $fields = [
-                "registration_ids" => $firebaseToken,
-                "notification" => [
-                    "title" => $data->title,
-                    "body" => \Illuminate\Support\Str::limit($data->description, 35, '...'),
-                ]
-            ];
-
-            $headers = array(
-                'Content-Type: application/json',
-                'Authorization:key = ' . $token
-
-            );
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(
-                $fields
-            ));
-            $result = curl_exec($ch);
-            if ($result === FALSE) {
-                die('Curl failed :' . curl_error($ch));
-            }
-            curl_close($ch);
-
-            return redirect()->route('news.index')->with(['success' => 'Data Added successfully Done', 'result' => $result]);
+            $news->tags()->attach($request->tags);
+            return redirect()->route('news.index')->with(['success' => 'Data Added successfully Done']);
         }
         return redirect()->back()->withInput()->with('failed', 'Data failed on create');
     }
@@ -113,24 +77,20 @@ class NewsController extends Controller
             'prefixname' => 'Admin',
             'title' => 'News Edit',
             'page_title' => 'News Edit',
-            'news' => News::findOrFail($id),
+            'news' => News::with('tags')->findOrFail($id),
             'categories' => Category::where('status', 1)->get(),
             'subcategories' => Subcategory::where('status', 1)->get(),
-            'tags' => Tag::where('status', 1)->latest()->get(),
+            'tags'=>Tag::where('status', 1)->latest()->get(),
         ]);
     }
 
     public function update(NewsRequest $request, $id)
     {
 
-
-
-
         $news = News::findOrFail($id);
         $news->user_id = Auth::user()->id;
         $news->category_id = $request->get('category');
         $news->subcategory_id = $request->get('subcategory');
-        $news->tag_id = $request->get('tag');
         $news->title = $request->get('title');
         $news->titleEn = $request->get('titleEn');
         $news->description = $request->get('description');
@@ -145,6 +105,7 @@ class NewsController extends Controller
         }
         $news->status = $request->status;
         if ($news->save()) {
+            $news->tags()->sync($request->tags);
             return redirect()->route('news.index', $news->id)->with('success', 'Data Updated successfully Done');
         }
         return redirect()->back()->withInput()->with('failed', 'Data failed on create');
@@ -153,10 +114,12 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $news = News::findOrFail($id);
+
         if (file_exists($news->image)) {
             unlink($news->image);
         }
         if ($news->delete()) {
+            $news->tags()->detach($news->tags);
             return redirect()->route('news.index')->with('success', 'Data Delete successfully');
         }
         return redirect()->back()->withInput()->with('failed', 'Data failed on deleting');

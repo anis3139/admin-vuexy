@@ -19,7 +19,6 @@ class ViewStoryResource extends JsonResource
             'title' => $this->title,
             'titleEn' => $this->titleEn,
             'titleBn' => $this->titleBn,
-//            'description' => preg_replace("/\r\n|\r|\n/", '',$this->description),
             'description' => $this->description,
             'descriptionEn' => $this->descriptionEn,
             'descriptionBn' => $this->descriptionBn,
@@ -29,6 +28,7 @@ class ViewStoryResource extends JsonResource
             'publishDateBn' => banglaDate(date('d M, Y H:i:s', strtotime($this->created_at))),
             'updateDateBn' =>  banglaDate(date('d M, Y H:i:s', strtotime($this->updated_at))),
             'published_by' => $this->user->name,
+            'tags' => $this->tags,
             'category' => [
                 'id' => $this->category->id,
                 'nameEn' => $this->category->nameEn,
@@ -43,11 +43,7 @@ class ViewStoryResource extends JsonResource
                 'description' => $this->subcategory_id != null ? $this->subcategory->description : '',
                 'image' => asset($this->subcategory_id != null ? $this->subcategory->image :'default_image/default.jpeg'),
             ],
-            'tag' => [
-                'id' => $this->tag_id != null ? $this->tag->id : $this->tag_id,
-                'nameEn' => $this->tag_id != null ? $this->tag->nameEn : '' ,
-                'nameBn' => $this->tag_id != null ? $this->tag->nameBn : '',
-            ]
+
         ];
     }
 }
