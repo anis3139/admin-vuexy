@@ -25,8 +25,13 @@
         <div class="row" id="table-responsive">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Approve List List</h4>
+                    <div class="card-header d-flex">
+                        <div class="left">
+                            <h4 class="card-title">Comment Approve List </h4>
+                        </div>
+                        <div class="right">
+                            <a class="btn btn-primary btn-learge" href="{{ route('comment.list') }}">Back To Comment List</a>
+                        </div>
                     </div>
                     <div class="card-body">
 

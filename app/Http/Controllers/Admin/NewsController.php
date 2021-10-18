@@ -37,7 +37,7 @@ class NewsController extends Controller
         ]);
     }
 
-    public function store(NewsRequest $request)
+    public function store(Request $request)
     {
         //upload photo
         if ($request->hasFile('img')) {

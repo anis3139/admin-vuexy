@@ -44,6 +44,9 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('')}}assets/css/style.css">
     <!-- END: Custom CSS-->
+
+    @yield('page-style')
+    @yield('vendor-style')
 </head>
 <!-- END: Head-->
 
@@ -106,7 +109,6 @@
     <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
     <!-- END: Footer-->
 
-
     <!-- BEGIN: Vendor JS-->
     <script src="{{asset('')}}app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
@@ -144,6 +146,8 @@
     </script>
     <!--  -->
     @stack('custom-js')
+    @yield('vendor-script')
+    @yield('page-script')
 </body>
 <!-- END: Body-->
 

@@ -25,7 +25,6 @@ class NewsRequest extends FormRequest
     {
         return [
             'category' => 'required',
-            'title' => 'required|unique:news,title,'.$this->id,
             'description' => 'required',
         ];
     }
