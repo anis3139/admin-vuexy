@@ -22,8 +22,8 @@ class News extends Model
     public function subcategory(){
         return $this->belongsTo('App\Models\Subcategory');
     }
-    public function tag(){
-        return $this->belongsTo('App\Models\Tag');
+    public function tags(){
+        return $this->belongsToMany('App\Models\Tag', 'news_tag', 'news_id', 'tag_id')->withTimestamps();;
     }
 
 

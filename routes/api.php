@@ -27,6 +27,7 @@ Route::namespace('\App\Http\Controllers\Api\V1')->group(function () {
         //category
         Route::prefix('category')->group(function () {
             Route::get('/all', 'CategoryController@index')->name('allCategory');
+            Route::get('/category-have-news', 'CategoryController@catHaveNews')->name('catHaveNews');
         });
         //sub-category
         Route::prefix('sub-category')->group(function () {

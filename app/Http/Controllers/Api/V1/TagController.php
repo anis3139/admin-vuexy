@@ -11,7 +11,7 @@ class TagController extends Controller
 {
     public function index(){
 
-        $tags = TagResource::collection(Tag::where('status',1)->get());
+        $tags = TagResource::collection(Tag::with('news')->where('status',1)->get());
 
         if ($tags->count() == 0) {
             $response = [

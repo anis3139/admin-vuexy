@@ -19,7 +19,7 @@ class CategoryController extends Controller
             'categories' => Category::latest()->get()
         ]);
     }
-
+ 
     public function create(){
         return view('admin.pages.category.create', [
             'prefixname' => 'Admin',
@@ -60,7 +60,7 @@ class CategoryController extends Controller
     }
 
     public function update(CategoryRequest $request, $id){
-   
+
         $category = Category::findOrFail($id);
         $category->nameBn = $request->get('nameBn');
         $category->nameEn = $request->get('nameEn');

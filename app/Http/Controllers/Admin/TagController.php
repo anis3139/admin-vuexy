@@ -14,7 +14,7 @@ class TagController extends Controller
             'prefixname' => 'Admin',
             'title' => 'Tag List',
             'page_title' => 'Tag List',
-            'tags' => Tag::latest()->get()
+            'tags' => Tag::has('news')->latest()->get()
         ]);
     }
 
@@ -28,7 +28,7 @@ class TagController extends Controller
 
     public function store(TagRequest $request){
 
-    
+
 
         $tag = new Tag();
         $tag->nameBn = $request->get('nameBn');

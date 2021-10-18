@@ -161,17 +161,16 @@
                                                 <div class="invalid-feedback">Please select your country</div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-md-6 col-12 mb-1">
-                                            <div class="form-group">
-                                                <label for="description">Satus</label>
-                                                <select name="status" class="form-control select2" aria-label="status"
-                                                    aria-describedby="status" id="status">
-                                                    <option value="1">Active</option>
-                                                    <option value="0">Deactive</option>
-                                                </select>
-                                                <div class="valid-feedback">Looks good!</div>
-                                                <div class="invalid-feedback">Please select your country</div>
-                                            </div>
+                                    </div>
+                                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                                        <div class="form-group">
+                                            <label for="tag">Tag</label>
+                                            <select name="tags[]" id="tag" class="form-control" multiple>
+                                                <option value="" selected>---- Select Tag---</option>
+                                                @foreach($tags as $key => $tag)
+                                                <option value="{{ $tag->id }}">{{ $tag->nameBn }} ({{ $tag->nameEn }})</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-xl-4 col-md-6 col-12 mb-1">
                                             <div class="form-group">
@@ -269,5 +268,5 @@
                 $('#imagePreview').attr('src', ImgSource)
             }
         })
-    </script>
+    </script> 
 @endsection
