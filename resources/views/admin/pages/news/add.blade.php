@@ -201,6 +201,7 @@
             <!-- Tooltip validations end -->
         </div>
     </div>
+
 @endsection
 @section('vendor-script')
     <!-- vendor files -->
@@ -269,4 +270,5 @@
             }
         })
     </script> 
+
 @endsection
